@@ -18,6 +18,7 @@ class Traslator:
     def translate(self, rna_sequence):
         protein = []
         sequence_len = len(rna_sequence)
+        index = 0
 
         while index + 3 <= sequence_len:
             codon = rna_sequence[index : index + 3].upper()
