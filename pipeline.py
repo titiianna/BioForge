@@ -10,11 +10,11 @@ class Pipeline:
         self.filters = filters
         self.counter = 1
 
-    def _translate_codon(self, codon):
+    def _translator_codon(self, codon):
         try:
             return self.codon_table[codon]
         except KeyError:
-            raise DataFileError(f"Codon {codon}: is not in codon dara.")
+            raise DataFileError(f"Codon {codon}: is not in codon data.")
 
     def find_orfs(self, dna_obj, strand_name):
         if strand_name == "Forward":
@@ -36,7 +36,7 @@ class Pipeline:
                 is_complete = False
                 j = i
                 while j + 3 <= rna_len:
-                    aa = self._translate_codon(rna[j:j + 3])
+                    aa = self._translator_codon(rna[j:j + 3])
                     if aa == STOP_SYMBOL:
                         is_complete = True
                         break
