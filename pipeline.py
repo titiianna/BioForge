@@ -6,4 +6,11 @@ STOP_CODON = ["UAA", "UAG", "UGA"]
 
 class Traslator:
     def __init__(self, codon_table):
-        pass
+        self.codon_table = codon_table
+
+    def translator_codon(self, codon):
+        codon_upper = codon.upper()
+        if codon_upper in self.codon_table:
+            return self.codon_table[codon_upper]
+        else:
+            raise DataFileError(f"codon {codon} : it is not in codon data.")
