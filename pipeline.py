@@ -18,7 +18,7 @@ class Pipeline:
 
     def find_orfs(self, dna_obj, strand_name):
         if strand_name == "Forward":
-            rna = dna_obj.dna_to_rna()
+            rna = dna_obj.to_rna()
         else:
             rna = dna_obj.reverse_complement().replace("T", "U")
 
