@@ -52,8 +52,5 @@ class WeightFilter(Filter):
         return result
 
 
-class MotifFilter(Filter):
-    def apply(self, proteins):
-        
-        pass
+
     
