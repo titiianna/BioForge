@@ -29,9 +29,27 @@ class LengthFilter(Filter):
 
 
 class WeightFilter(Filter):
-    def apply(self, proteins):
-     
+    def __init__(self, amino_weights, min_weight=None, max_weight=None):
+        self.amino_weights = amino_weights
+        self.min_weight = min_weight
+        self.max_weight = max_weight
         pass
+
+    def apply(self, proteins):
+        result = []
+
+        for protein in proteins:
+            weight = self._calculate_weight(protein.protein)
+
+            if self.min_weight is not None and weight < self.min_weight:
+                continue
+
+            if self.max_weight is not None and weight > self.max_weight:
+                continue
+
+            result.append(protein)
+
+        return result
 
 
 class MotifFilter(Filter):
