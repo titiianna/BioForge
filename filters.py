@@ -27,4 +27,15 @@ class LengthFilter(Filter):
 
         return result
 
+
+class WeightFilter(Filter):
+    def apply(self, proteins):
+     
+        pass
+
+
+class MotifFilter(Filter):
+    def apply(self, proteins):
+        
+        pass
     
