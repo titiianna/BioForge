@@ -1,4 +1,5 @@
 from exceptions import BioForgeError
+from weight import Protein_weight
 
 class Filter :
 
@@ -29,21 +30,19 @@ class LengthFilter(Filter):
 
 
 class WeightFilter(Filter):
-    def __init__(self, amino_weights, min_weight=None, max_weight=None):
-        self.amino_weights = amino_weights
+    def __init__(self, protein_weight, min_weight=None, max_weight=None):
+        self.protein_weight = protein_weight
         self.min_weight = min_weight
         self.max_weight = max_weight
         pass
 
     def apply(self, proteins):
         result = []
-
         for protein in proteins:
-            weight = self._calculate_weight(protein.protein)
+            weight = self.protein_weight.calculate_weight(protein.protein)
 
             if self.min_weight is not None and weight < self.min_weight:
                 continue
-
             if self.max_weight is not None and weight > self.max_weight:
                 continue
 
