@@ -1,11 +1,12 @@
 #کد مربوط به بخش وزن پروتئین ها 
 from exceptions import DataFileError   
+
 class Protein_weight:
 
     def __init__(self, amino_weights):
         self.amino_weights = amino_weights
-        pass
-    
+
+
     def file_analysis(self , amino_weights):
 
         with open("data/amino_weights.txt" , "r" , encoding="utf-8") as file:
@@ -26,14 +27,15 @@ class Protein_weight:
                 if amino_weights =={}:
                     raise DataFileError("amino_weights.txt not found")
 
+        return amino_weights
 
-    def weight_calculate(self , protein , amino_weights):
+    def weight_calculate(self , protein):
 
         final_protein_weight = 18.015
       
         for amino in protein:
-            final_protein_weight += amino_weights[amino]
+            final_protein_weight += self.amino_weights[amino]
 
-            return final_protein_weight
+        return final_protein_weight
 
 
