@@ -1,6 +1,6 @@
 from exceptions import FastaFormatError
-from dna_sequence import DNASequence
-
+from models import DNASequence
+from exceptions import InvalidSequenceError
 
 class FastaRecord:
 
@@ -9,8 +9,15 @@ class FastaRecord:
         self.description = description
         self.sequence = DNASequence(sequence)
 
+def _add_record(records, record_id, description, sequence, logger):
+    if sequence == "":
+        raise FastaFormatError(f"empty header: {record_id}")
+    try:
+        records.append(FastaRecord(record_id, description, sequence))
+    except InvalidSequenceError as e:
+        logger.error(f"error in {record_id}: {e}")
 
-def read_fasta(file_name):
+def read_fasta(file_name,logger):
 
     records = []
 
@@ -37,15 +44,7 @@ def read_fasta(file_name):
                             raise FastaFormatError(
                                 "Header has no sequence: " + current_id
                             )
-
-                        record = FastaRecord(
-                            current_id,
-                            current_description,
-                            current_sequence
-                        )
-
-                        records.append(record)
-
+                        _add_record(records, current_id, current_description, current_sequence, logger)
                     header = line[1:].strip()
 
                     if header == "":
@@ -78,13 +77,7 @@ def read_fasta(file_name):
                         "Header has no sequence: " + current_id
                     )
 
-                record = FastaRecord(
-                    current_id,
-                    current_description,
-                    current_sequence
-                )
-
-                records.append(record)
+                _add_record(records, current_id, current_description, current_sequence, logger)
 
     except FileNotFoundError:
 
