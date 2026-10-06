@@ -3,52 +3,40 @@ from weight import Protein_weight
 
 class Filter :
 
-    def filter(self , protein):
+    def filter(self , orf):
         pass
 
 
 class LengthFilter(Filter):
 
-    def __init__(self , min_length , max_length=0):
+    def __init__(self , min_length):
         self.min_length = min_length
-        self.max_length = max_length
 
-    def filter(self, proteins):
-        result = []
-        for protein in proteins:
-            length = len(protein.protein)
+    def filter(self, orf):
+        length = len(orf.protein)
 
-            if length < self.min_length:
-                continue
+        if length < self.min_length:
+            return False
 
-            if self.max_length is not None and length > self.max_length:
-                continue
-
-            result.append(protein)
-
-        return result
-
+        return True
 
 class WeightFilter(Filter):
     def __init__(self, protein_weight, min_weight=None, max_weight=None):
         self.protein_weight = protein_weight
         self.min_weight = min_weight
         self.max_weight = max_weight
-        pass
 
-    def filter(self, proteins):
-        result = []
-        for protein in proteins:
-            weight = self.protein_weight.calculate_weight(protein.protein)
+    def filter(self, orf):
+        weight = self.protein_weight.calculate_weight(orf.protein)
 
-            if self.min_weight is not None and weight < self.min_weight:
-                continue
-            if self.max_weight is not None and weight > self.max_weight:
-                continue
+        if self.min_weight is not None and weight < self.min_weight:
+            return False
 
-            result.append(protein)
+        if self.max_weight is not None and weight > self.max_weight:
+            return False
 
-        return result
+        return True
+
 
 
 
