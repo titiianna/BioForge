@@ -3,7 +3,7 @@ from weight import Protein_weight
 
 class Filter :
 
-    def aplly(self , protein):
+    def filter(self , protein):
         pass
 
 
@@ -13,7 +13,7 @@ class LengthFilter(Filter):
         self.min_length = min_length
         self.max_length = max_length
 
-    def apply(self, proteins):
+    def filter(self, proteins):
         result = []
         for protein in proteins:
             length = len(protein.protein)
@@ -36,7 +36,7 @@ class WeightFilter(Filter):
         self.max_weight = max_weight
         pass
 
-    def apply(self, proteins):
+    def filter(self, proteins):
         result = []
         for protein in proteins:
             weight = self.protein_weight.calculate_weight(protein.protein)
