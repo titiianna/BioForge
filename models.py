@@ -10,7 +10,7 @@ class DNASequence:
 
     def validate(self):
         if self.sequence == "":
-            raise InvalidSequenceError(f"Empty sequence: {self.sequence_id}")
+            raise InvalidSequenceError(f"Empty sequence: {self.sequence}")
         for letter in self.sequence:
             if letter not in "ACGT":
                 raise InvalidSequenceError(
