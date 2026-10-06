@@ -90,7 +90,10 @@ class DataDirLoad:
                 parts = line.split()
                 if len(parts) != 2:
                     raise DataFileError(f"error line {line_num}: {line}")
-                amino_weights[parts[0].upper()] = float(parts[1])
+                try:
+                    amino_weights[parts[0].upper()] = float(parts[1])
+                except ValueError:
+                    raise DataFileError(f"error line {line_num}: {line}")
         return amino_weights
 
 class ORF:
